@@ -7,7 +7,8 @@ module ActiveRecord
 
         case reflection.macro
         when :count_loader
-          Associations::Preloader::CountLoader
+          reflection.has_many_through_counter? ?
+            Associations::Preloader::HasManyThroughCountLoader : Associations::Preloader::CountLoader
         end
       end
     end

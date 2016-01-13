@@ -45,6 +45,15 @@ module ActiveRecord
           super
         end
       end
+
+      def has_many_through_reflection
+        return @has_many_through_reflection if defined? @has_many_through_reflection
+        ref = self.active_record.reflection_for self.name_without_count
+        @has_many_through_reflection = ref.is_a?(ActiveRecord::Reflection::ThroughReflection) ? ref.through_reflection : nil
+      end
+      def has_many_through_counter?
+        !!self.has_many_through_reflection
+      end
     end
   end
 end
